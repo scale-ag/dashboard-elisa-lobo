@@ -1,36 +1,46 @@
-# AGENTS.md — TEMPLATE de dashboard de captura de leads (High Ticket)
+# AGENTS.md — Dashboard Elisa Lobo (Captação de Leads)
 
 > Contexto completo em **`CLAUDE.md`** (mesma pasta) — leia-o antes de mexer no
 > projeto. Este arquivo é um resumo para agentes/ferramentas que seguem a
 > convenção `AGENTS.md`.
 >
-> **Este é um TEMPLATE limpo.** Todos os valores do cliente estão como
-> `<<PREENCHER: descrição>>`.
+> Este repositório já está configurado para o cliente **Elisa Lobo** — não é
+> mais um template genérico. Veja `CLAUDE.md` para os detalhes da arquitetura
+> de dados (2 planilhas, 2 sub-funis Quiz/WhatsApp).
 
-## ✅ CHECKLIST DE NOVO CLIENTE (fazer em ordem)
+## Configuração atual (Elisa Lobo)
 
-1. **`build/build.py` — constantes do topo:** `SPREADSHEET_ID`, `GID_CONVERSAS`
-   (fonte principal), `GID_LEADS` (legado, só contado), `GID_META`, `GID_SALES`,
-   `CLIENT_NAME`, `MAIN_PRODUCT`, `MAIN_PRODUCT_PREFIX`, `TAX_FACTOR`.
-2. **`build/build.py` — critério de MQL:** ajustar `is_medico()` e os aliases da
-   coluna de qualificação em `process()` ao cabeçalho da aba Conversas do cliente.
-3. **`build/app.js`:** revisar os rótulos fixos `'MQLs (...)'` e o agrupamento de
-   "faixa"/especialidade (o critério de `build.py` não propaga sozinho a esses textos).
-4. **`build/template.html`:** preencher `<title>` e o logo (`logo-main`/`logo-sub`).
-5. **`build/identidade-visual.css`:** cores, se o cliente tiver identidade própria.
-6. **`README.md` / `CLAUDE.md` / `SETUP-CRON.md`:** owner/repo do GitHub, URL do
-   GitHub Pages, nome do cliente, planilha/gids.
-7. **`build/GUIA-RELATORIOS.md`:** preencher o "Contexto do funil".
-8. **GitHub Pages + Actions:** confirmar `build/` + `.github/workflows/deploy.yml`
+1. **`build/build.py`:** `SPREADSHEET_ID_META`/`GID_META` (planilha Meta Ads,
+   aba Página 1), `SPREADSHEET_ID_LEADS`/`GID_LEADS` (planilha Leads, aba Leads),
+   `CLIENT_NAME="Elisa Lobo"`, `MAIN_PRODUCT_PREFIX="EL | E2-CAP"`,
+   `TAX_FACTOR=1.1385`.
+2. **Critério de MQL:** `is_mql()` em `build.py` — coluna "Nível" == "Intenso".
+3. **Sub-funis:** campanhas com `LEAD` no nome cruzam com a planilha de Leads
+   (Quiz); campanhas com `ENGJ` no nome usam `Messaging Conversations Started`
+   (WhatsApp, sem MQL). `E1-DIST` fica fora.
+4. **`build/template.html`:** título/logo já preenchidos ("Elisa Lobo" /
+   "Dashboard Elisa Lobo").
+5. **`README.md` / `CLAUDE.md` / `SETUP-CRON.md`:** owner `scale-ag`, repo
+   `dashboard-elisa-lobo`, URL do GitHub Pages já preenchidos.
+6. **GitHub Pages + Actions:** confirmar `build/` + `.github/workflows/deploy.yml`
    na `main` (ativa `workflow_dispatch`); rodar o workflow uma vez.
-9. **cron-job.org:** seguir `SETUP-CRON.md` — token fine-grained novo (Actions:
+7. **cron-job.org:** seguir `SETUP-CRON.md` — token fine-grained novo (Actions:
    read/write, só neste repo), nunca reaproveitar um token exposto em chat.
-10. **Insights de Tráfego (opcional):** `build/relatorios.json` e
-    `build/relatorios_dados.json` começam vazios (`{}`). Ativar: deixar `briefing.yml`
-    gerar os números + criar a **Routine do Claude** (`create_trigger` apontando para
-    este repo) que redige `relatorios.json` na `main`. **Não vem pronta** — recriar por cliente.
-11. **Testar local** com CSVs de amostra antes de publicar (3 páginas, tema
-    claro/escuro, multi-seleção).
+8. **Insights de Tráfego (opcional):** `build/relatorios.json` e
+   `build/relatorios_dados.json` começam vazios (`{}`). Ativar: deixar `briefing.yml`
+   gerar os números + criar a **Routine do Claude** (`create_trigger` apontando para
+   este repo) que redige `relatorios.json` na `main`. **Não vem pronta** — não foi
+   criada nesta configuração inicial.
+9. **Testar local** com CSVs de amostra antes de publicar (3 páginas, tema
+   claro/escuro, multi-seleção).
+
+## Se for replicar este projeto para outro cliente
+
+Veja o **CHECKLIST DE NOVO CLIENTE** no topo de `CLAUDE.md` e o passo a passo
+completo em `GUIA-REPLICACAO.md` — a estrutura de 2 planilhas/2 sub-funis
+específica da Elisa Lobo não é genérica; um cliente novo com o layout
+"Conversas + Meta Ads + Compradores" do template original exigiria voltar a
+essa estrutura em `build.py`.
 
 > **Fora do escopo deste template:** não há Cloudflare Worker nem chamada paga à
 > API da Anthropic. A automação de Insights é uma Routine agendada do Claude Code
@@ -46,7 +56,7 @@ coleta/redação dos Insights. Ver `GUIA-REPLICACAO.md` para os detalhes de
 implementação (filtro cruzado, engine de tabela, gráficos Chart.js).
 
 > `template.html` e `app.js` são engine, mas carregam o nome do cliente em pontos
-> pontuais (título/logo e um comentário) — já marcados como `<<PREENCHER>>`.
+> pontuais (título/logo) — já preenchidos com "Elisa Lobo".
 
 ## Específico do cliente (troca a cada replicação)
 `build/build.py`, `build/identidade-visual.css` (cores, se aplicável),

@@ -1,42 +1,39 @@
-# CLAUDE.md — Contexto do projeto (TEMPLATE High Ticket)
+# CLAUDE.md — Contexto do projeto (Dashboard Elisa Lobo)
 
 > Este arquivo é lido automaticamente pelo Claude Code ao abrir o repositório.
 > Ele carrega TODO o contexto necessário para continuar o trabalho sem depender
 > de mensagens anteriores. Mantenha-o atualizado.
 >
-> **Este é um TEMPLATE limpo.** Todos os valores específicos do cliente estão
-> marcados como `<<PREENCHER: descrição>>`. Siga o CHECKLIST abaixo para
-> configurar um cliente novo.
+> Este repositório nasceu do template genérico "High Ticket" (1 planilha
+> central + cruzamento por telefone com Compradores), mas foi **configurado e
+> adaptado para o cliente Elisa Lobo**: 2 planilhas separadas, sem aba de
+> Compradores/vendas, e 2 sub-funis (Quiz/WhatsApp) dentro da mesma planilha de
+> Meta Ads. Todos os marcadores de preenchimento do template já foram
+> resolvidos — os detalhes ficam nas seções abaixo.
 
 ---
 
-## ✅ CHECKLIST DE NOVO CLIENTE (fazer em ordem)
+## Configuração deste cliente (Elisa Lobo)
 
-Preencha cada `<<PREENCHER: …>>` do repositório. Ordem sugerida:
-
-1. **`build/build.py` — constantes do topo:**
-   - `SPREADSHEET_ID` — ID da planilha central do Google Sheets do cliente.
-   - `GID_CONVERSAS` — gid da aba de Conversas (fonte principal de leads).
-   - `GID_LEADS` — gid da aba de Leads legado (popup/form; só contada).
-   - `GID_META` — gid da aba Meta Ads.
-   - `GID_SALES` — gid da aba de Compradores (New Subscriptions).
-   - `CLIENT_NAME`, `MAIN_PRODUCT` — nome do cliente e da oferta principal.
-   - `MAIN_PRODUCT_PREFIX` — prefixo comum às campanhas do cliente.
-   - `TAX_FACTOR` — fator de imposto/taxa da mídia (1.0 = sem imposto).
-2. **`build/build.py` — critério de MQL:** ajuste `is_medico()` e os aliases da
-   coluna de qualificação em `process()` (`"medico": [...]` + índice de fallback)
-   ao critério e ao cabeçalho da aba Conversas do cliente.
-3. **`build/app.js`:** revisar os rótulos fixos de UI que citam o critério de MQL
-   ("MQLs (...)") e o agrupamento de "faixa"/especialidade — o critério de
-   `build.py` não propaga sozinho para esses textos.
-4. **`build/template.html`:** preencher `<title>` e o logo (`logo-main`/`logo-sub`)
-   com o nome/slogan do cliente. (Opcional: trocar o favicon base64.)
-5. **`build/identidade-visual.css`:** ajustar cores se o cliente tiver identidade
-   própria (opcional — o default funciona).
-6. **`README.md` / `SETUP-CRON.md` / este `CLAUDE.md` / `AGENTS.md`:** owner/repo
-   do GitHub, URL do GitHub Pages, nome do cliente, planilha/gids.
-7. **`build/GUIA-RELATORIOS.md`:** preencher o "Contexto do funil" (cliente,
-   oferta, critério de MQL).
+1. **`build/build.py` — constantes do topo:** `SPREADSHEET_ID_META`/`GID_META`
+   (planilha Meta Ads, aba Página 1), `SPREADSHEET_ID_LEADS`/`GID_LEADS`
+   (planilha Leads, aba Leads), `CLIENT_NAME="Elisa Lobo"`,
+   `MAIN_PRODUCT="Captação de Leads"`, `MAIN_PRODUCT_PREFIX="EL | E2-CAP"`,
+   `TAX_FACTOR=1.1385`.
+2. **Critério de MQL:** `is_mql()` em `build.py` — coluna "Nível" da planilha
+   Leads == "Intenso".
+3. **Sub-funis:** `subfunnel_of()` classifica cada campanha do Meta Ads por
+   `Campaign Name` — `LEAD` (Quiz, cruza com Leads) vs. `ENGJ` (WhatsApp, sem
+   MQL, métrica = Messaging Conversations Started). `E1-DIST` fica fora.
+4. **`build/app.js`/`template.html`:** rótulos de MQL ("MQLs (Nível Intenso)"),
+   dimensão "Área prioritária" e KPIs/colunas de "Conversas (WhatsApp)" já
+   ajustados a este critério.
+5. **`build/template.html`:** `<title>` e logo já preenchidos ("Elisa Lobo" /
+   "Dashboard Elisa Lobo").
+6. **`README.md` / `SETUP-CRON.md` / `AGENTS.md`:** owner `scale-ag`, repo
+   `dashboard-elisa-lobo`, URL do GitHub Pages já preenchidos.
+7. **`build/GUIA-RELATORIOS.md`:** "Contexto do funil" já descreve os 2
+   sub-funis e o critério de MQL da Elisa Lobo.
 8. **GitHub Pages + Actions:** confirmar que `build/` + `.github/workflows/deploy.yml`
    estão na `main` (ativa `workflow_dispatch`); rodar o workflow uma vez.
 9. **cron-job.org:** seguir `SETUP-CRON.md` — token fine-grained novo (Actions:
@@ -47,15 +44,20 @@ Preencha cada `<<PREENCHER: …>>` do repositório. Ordem sugerida:
       com os números), e
     - criar a **Routine do Claude** (`create_trigger` apontando para este repo)
       que lê os números + os 2 guias e escreve `relatorios.json` na `main`
-      (ver "Briefing automático" abaixo). **Não vem pronta** — precisa ser
-      recriada por cliente.
+      (ver "Briefing automático" abaixo). **Não vem pronta nesta configuração
+      inicial** — precisa ser criada quando o cliente quiser ativar os Insights.
 11. **Testar local** com CSVs de amostra antes de publicar (3 páginas, tema
     claro/escuro, multi-seleção).
 
-> **Fora do escopo deste template:** não há Cloudflare Worker nem chamada paga à
+> **Fora do escopo deste projeto:** não há Cloudflare Worker nem chamada paga à
 > API da Anthropic no pipeline. A automação de Insights é feita por Routine
-> agendada do Claude Code (item 10). Se o cliente precisar de outra camada, é
-> desenvolvimento novo.
+> agendada do Claude Code (item 10). Qualquer outra camada é desenvolvimento novo.
+>
+> **Se for replicar este projeto para outro cliente:** a estrutura de 2
+> planilhas/2 sub-funis é específica da Elisa Lobo. Um cliente novo com o
+> layout "Conversas + Meta Ads + Compradores" do template original exigiria
+> voltar a essa estrutura em `build.py` (ver histórico do repositório/commits
+> anteriores a esta configuração, ou `GUIA-REPLICACAO.md`).
 
 ---
 
@@ -66,68 +68,60 @@ puro + Chart.js via CDN) publicado no **GitHub Pages**, que cruza a lista de
 **Leads** com o gerenciador de mídia paga e se atualiza sozinho a cada ~30 min
 (build 100% na nuvem via GitHub Actions, disparado externamente pelo cron-job.org).
 
-- **URL pública:** `https://<<PREENCHER: owner do GitHub>>.github.io/<<PREENCHER: nome do repositório>>/`
+- **URL pública:** `https://scale-ag.github.io/dashboard-elisa-lobo/`
 - **Somente leitura** das planilhas. Nunca escrever de volta.
+
+> **Nota:** este repositório saiu do template genérico de 1 planilha central
+> (Conversas/Leads-legado/Meta/Compradores) porque a estrutura de dados da
+> Elisa Lobo é diferente: **2 planilhas separadas**, sem aba de Compradores, e
+> **2 sub-funis** dentro da mesma planilha de Meta Ads. `build.py` foi reescrito
+> para esse formato — não segue mais 1:1 as seções genéricas abaixo tituladas
+> "Vendas & Faturamento"/"Convenções de campanha" do template original.
 
 ## Fontes de dados (Google Sheets)
 
-Spreadsheet ID: `<<PREENCHER: SPREADSHEET_ID>>` ("<<PREENCHER: nome da planilha central>>").
-
-| Aba | gid | Colunas usadas |
-|-----|-----|----------------|
-| **Conversas** (fonte principal — webhook de mensageria/WhatsApp) | `<<PREENCHER: GID_CONVERSAS>>` | `Data` · `Mensagem` · `Nome` · `Telefone` · coluna de MQL · `Campanha` · `Conjunto` · `Anúncio` · `Especialidades` |
-| **Leads** (legado — popup/form antigo, só contada) | `<<PREENCHER: GID_LEADS>>` | `Data` · `Nome` · `Email` · `Telefone` · coluna de MQL · `Especialidade` · `utm_*` · `MQL` · `Compra Detectada`/`Faturamento Detectado`/`Data Compra` |
-| **Meta Ads** | `<<PREENCHER: GID_META>>` | `Day` · `Ad ID` · `Campaign Name` · `Ad Set Name` · `Ad Name` · `Amount Spent` · `Impressions` · `Link Clicks` · `Landing Page Views` · `Content Views` · `Adds to Cart` · `Subscriptions` · `Subscribe Conversion Value` |
-| **New Subscriptions** (Compradores) | `<<PREENCHER: GID_SALES>>` | `Data` · `Nome` · `Email` · `Telefone` · `Produto` · `Oferta` · `Faturamento` · `Receita` · `Método de Pagamento` · `Campanha` · `Conjunto` · `Anúncio` · `UF` · `Cidade` · `Zip Code` · `Endereço` |
+| Planilha | Aba | gid | Colunas |
+|-----|-----|-----|---------|
+| **Meta Ads** (`12pV1kFQQ0uGgH4JBSY3SgW-2N9R7vnNaptf7u6Et1_I`) | Página 1 | `0` | `Day` · `Campaign Name` · `Ad Set Name` · `Ad Name` · `Impressions` · `Link Clicks` · `Amount Spent` · `Messaging Conversations Started` · `Cost per Messaging Conversations Started` |
+| **Leads** (`1Fl4PL3M8J28nDzEuVcZxmOkjyyDnBiHLJStb6VlSsDY`) | Leads | `0` | `Data/Hora` · `Nome` · `E-mail` · `Telefone` · `Nota` · `Nível` · `Área prioritária` · `Origem (anúncio)` |
 
 URL de export CSV: `https://docs.google.com/spreadsheets/d/<ID>/export?format=csv&gid=<GID>`
 
+### Sub-funis dentro do prefixo `EL | E2-CAP`
+`build.py` → `subfunnel_of()` classifica cada linha do Meta Ads pelo
+`Campaign Name`:
+- contém **`LEAD`** → sub-funil **Quiz**: cruza com a planilha de Leads (por
+  `Origem (anúncio)` == `Ad Name`, normalizado) e aplica MQL.
+- contém **`ENGJ`** → sub-funil **WhatsApp**: **não** cruza com Leads (sem MQL);
+  a métrica de resultado é `Messaging Conversations Started` (campo `cv` nos
+  registros de `meta[]`, exposto em `app.js` como KPI "Conversas Iniciadas" e
+  coluna "Conversas (WhatsApp)"/"Custo/Conv." nas tabelas).
+- qualquer outra sigla (ex. `E1-DIST`, funil de distribuição) **fica fora**
+  do dashboard — nem `MAIN_PRODUCT_PREFIX` bate.
+
 ### Regra de Lead Qualificado (MQL)
-Coluna de qualificação (<<PREENCHER: nome da coluna de MQL, ex. "É médico?">>) == "Sim".
-Lógica em `build.py` → `is_medico`. O gráfico "Leads por especialidade" (`app.js`,
-`renderGeralCore`) colore verde/cinza pelo mesmo critério, usando a coluna
-`Especialidades`/`Especialidade` como dimensão.
+Coluna **"Nível"** da planilha Leads == **"Intenso"**. Lógica em `build.py` →
+`is_mql`. O gráfico "Leads por área prioritária" (`app.js`, `renderGeralCore`)
+colore verde/cinza pelo mesmo critério, usando a coluna `Área prioritária`
+como dimensão (`prof`/`bucket` em `leads[]`).
 
-### Vendas & Faturamento (cruzamento com Compradores)
-`build.py` → `build_sales_index()` lê a aba **New Subscriptions** e indexa por
-**telefone** (normalizado, só dígitos) → lista de compras **não agregada**,
-uma entrada por linha: `[{d, fat, receita}, ...]` (`d` = data real daquela
-compra). Em `process()`, as linhas da **Conversas** são ordenadas pela **data
-já parseada** (`parse_date`, não a string bruta) para achar a **1ª conversa**
-(mais antiga de fato) de cada telefone; essa conversa define **apenas**
-camp/adset/ad da venda (o anúncio que trouxe aquele contato) — nunca a data.
-Cada compra vira um registro próprio em `DATA.sales[]`
-(`{d, camp, adset, ad, vendas:1, fat, receita}`) com a **data real da compra**.
-No navegador, `salesActive()` (`app.js`) filtra `sales[]` pela mesma data ativa
-que `leadsActive()`/`metaActive()`, e os três arrays (`fL`/`fM`/`fS`) se
-propagam juntos em `buildAgg`/`daily`/`totals`.
-
-**TODA venda entra na dash** (regra geral: "todas as vendas entram na Visão
-Geral; só as atribuídas ao Meta entram na aba de mídia paga"). O cruzamento
-Compradores × Conversas usa `canon_phone()` — **chave canônica** = DDD +
-últimos 8 dígitos, robusta a **DDI "55"** presente/ausente e ao **9º dígito**
-do celular. Quando o telefone bate com uma conversa, a venda recebe
-camp/adset/ad daquela conversa. Quando **não** bate, a venda **ainda conta nos
-totais/Visão Geral**, porém como `(sem campanha)` / `src="org"` — some apenas da
-quebra por campanha do Meta. `log_unmatched_sales()` loga no build quantas
-vendas ficaram sem anúncio de origem. **Não** usa as colunas `Compra Detectada`
-/ `Faturamento Detectado` já calculadas na planilha (decisão de projeto: cruzar
-do zero, mais robusto a erro de fórmula).
+### Vendas & Faturamento
+**Sem fonte conectada nesta fase** — não há planilha de Compradores. `sales[]`
+fica sempre `[]` em `build.py`; Vendas/CAC/Faturamento/ROAS aparecem como "-"
+em toda a dashboard (comportamento nativo de `salesOf()` em `app.js` quando
+`vendas`/`fat` são `null`).
 
 ### Imposto da mídia paga
-`TAX_FACTOR` em `build.py` (`<<PREENCHER: fator, ex. 1.13806>>`). O toggle
-"Imposto Meta" fica **ativo por padrão** (`STATE.tax=true` em `app.js`) e aplica
-o fator em todo o gasto/derivados (CPL, CPMQL, CAC etc.); desativar o toggle
-volta ao gasto sem imposto. Se o cliente não tiver imposto, use `TAX_FACTOR = 1.0`.
+`TAX_FACTOR = 1.1385` em `build.py` (13,85%). O toggle "Imposto Meta" fica
+**ativo por padrão** (`STATE.tax=true` em `app.js`) e aplica o fator em todo o
+gasto/derivados (CPL, CPMQL, Custo/Conversa etc.); desativar o toggle volta ao
+gasto sem imposto.
 
-### Convenções de campanha (do cliente)
-Todas as campanhas usam o prefixo `<<PREENCHER: MAIN_PRODUCT_PREFIX>>`
-(`MAIN_PRODUCT_PREFIX`), sem filtrar por sub-funil — mantém TODAS as campanhas
-no dashboard. Ajuste o prefixo e, se o cliente usar siglas de etapa
-(ex. `<<PREENCHER: siglas de etapa, se houver>>`), documente-as aqui. A Conversas
-já traz `Campanha`/`Conjunto`/`Anúncio` prontos (nomes idênticos ao
-`Campaign Name`/`Ad Set Name`/`Ad Name` do Meta Ads) — `build.py` só copia esses
-valores, sem precisar de UTM nessa aba.
+### Page Views / Checkouts
+A planilha de Meta Ads não tem colunas de Landing Page Views nem Adds to
+Cart/Checkout. `build.py` seta `has_pv=False`/`has_chk=False` em `data.build`;
+`app.js` usa essas flags (`HAS_PV`/`HAS_CHK`) para que CR/CPV/ConvLP/VisCHK
+apareçam como "-" em vez de 0%, em vez de assumir `pv=0`/`chk=0` como dado real.
 
 ## Arquitetura / arquivos
 

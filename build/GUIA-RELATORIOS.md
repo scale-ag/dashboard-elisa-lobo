@@ -73,25 +73,24 @@ os Insights.
 
 ## Contexto do funil
 
-**Funil de High Ticket (<<PREENCHER: nome do cliente>>)** — <<PREENCHER: descrição
-curta do cliente/oferta>>. Funil de captura via WhatsApp com venda 1:1 (comercial
-fecha por conversa/reunião, não carrinho direto): o anúncio no Meta Ads leva
-a uma página de captura com botão do WhatsApp; ao clicar, o lead chama no
-WhatsApp Business do cliente e o webhook de mensageria dispara na 1ª mensagem,
-que cai na aba **Conversas** (fonte principal de leads deste dashboard). O
-critério de qualificação (MQL) é <<PREENCHER: critério de MQL do cliente, ex.
-"o lead ser médico">> — se qualificado, segue a conversa com o comercial até a
-venda (registrada na aba de Compradores e cruzada de volta ao anúncio por telefone).
+**Funil de Captação de Leads (Elisa Lobo)** — captação de leads via Quiz (Meta
+Ads → página de quiz → formulário) mais um sub-funil paralelo de WhatsApp. No
+funil **Quiz** (campanhas com `LEAD` no nome), o anúncio leva a um quiz; o lead
+preenche o formulário e cai na planilha **Leads**, cruzada de volta ao anúncio
+pela coluna `Origem (anúncio)`. O critério de qualificação (MQL) é a coluna
+**"Nível" == "Intenso"**. No sub-funil **WhatsApp** (campanhas com `ENGJ` no
+nome), o anúncio leva direto à conversa no WhatsApp — não há MQL, a métrica de
+resultado é `Messaging Conversations Started` (Conversas Iniciadas). Não há,
+nesta fase, fonte de vendas/faturamento conectada — o funil Quiz vai até MQL.
 
 ```
-Impressões → Cliques/abertura do WhatsApp → Leads → MQLs → Vendas → Faturamento
+Funil Quiz:      Impressões → Cliques → Leads → MQLs (Nível "Intenso")
+Funil WhatsApp:  Impressões → Cliques → Conversas Iniciadas (sem MQL)
 ```
 
-- **MQL** = coluna de qualificação (<<PREENCHER: nome da coluna de MQL>>) == "Sim" (ver `build.py` → `is_medico`).
-- **Agendamento** = o lead qualificado marcou horário de reunião com o comercial.
-- **Reunião Realizada** = a reunião de fato aconteceu (o lead compareceu). O
-  inverso disso é o **No‑Show** (agendou e não compareceu) — a métrica de alerta
-  mais importante entre Agendamento e Venda.
+- **MQL** = coluna "Nível" da planilha Leads == "Intenso" (ver `build.py` → `is_mql`).
+- **Agendamento / Reunião Realizada / Venda / Faturamento** = etapas seguintes
+  do funil comercial; sem fonte conectada nesta fase, aparecem como "-".
 
 > **Estado atual dos dados:** enquanto só houver mídia paga × Leads, o funil
 > vai até **MQL**. As etapas seguintes (Agendamentos, Reuniões Realizadas, Vendas,

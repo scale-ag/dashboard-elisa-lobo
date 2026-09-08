@@ -212,18 +212,14 @@ def periodo_payload(meta: list[dict], leads: list[dict], today, start, end, key,
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--conversas-file")
     ap.add_argument("--meta-file")
-    ap.add_argument("--sales-file")
     ap.add_argument("--leads-file")
     ap.add_argument("--out", default="build/relatorios_dados.json")
     args = ap.parse_args()
 
-    conversas_rows = bp.load_rows(bp.EXPORT_URL.format(sid=bp.SPREADSHEET_ID, gid=bp.GID_CONVERSAS), args.conversas_file)
-    meta_rows = bp.load_rows(bp.EXPORT_URL.format(sid=bp.SPREADSHEET_ID, gid=bp.GID_META), args.meta_file)
-    sales_rows = bp.load_rows(bp.EXPORT_URL.format(sid=bp.SPREADSHEET_ID, gid=bp.GID_SALES), args.sales_file)
-    leads_lp_rows = bp.load_rows(bp.EXPORT_URL.format(sid=bp.SPREADSHEET_ID, gid=bp.GID_LEADS), args.leads_file)
-    data = bp.process(conversas_rows, meta_rows, sales_rows, leads_lp_rows)
+    meta_rows = bp.load_rows(bp.EXPORT_URL.format(sid=bp.SPREADSHEET_ID_META, gid=bp.GID_META), args.meta_file)
+    leads_rows = bp.load_rows(bp.EXPORT_URL.format(sid=bp.SPREADSHEET_ID_LEADS, gid=bp.GID_LEADS), args.leads_file)
+    data = bp.process(meta_rows, leads_rows)
     leads, meta = data["leads"], data["meta"]
 
     now_brt = datetime.now(BRT)
