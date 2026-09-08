@@ -221,6 +221,21 @@ def cell(row, i):
     return (row[i] or "").strip()
 
 
+def extract_ad_name(origem: str) -> str:
+    """A coluna 'Origem (anúncio)' da planilha Leads não traz só o Ad Name —
+    vem como '{Campanha} · {Ad Name} #{id do Facebook}', ex.:
+    'EL | E2-CAP | P2-FRIO | LEAD | ABO | 2026-07-31 | Quizz · AD03 - Estático #120254251504720191'.
+    Extrai só o trecho do Ad Name: pega o que vem depois do último ' · ' e
+    remove o sufixo ' #<dígitos>' (o ID interno do anúncio no Facebook)."""
+    s = (origem or "").strip()
+    if not s:
+        return s
+    if " · " in s:
+        s = s.rsplit(" · ", 1)[-1].strip()
+    s = re.sub(r"\s*#\d+\s*$", "", s).strip()
+    return s
+
+
 def subfunnel_of(campaign_name: str) -> str | None:
     """Classifica a campanha em 'quiz' (LEAD) ou 'whatsapp' (ENGJ), ou None se
     não pertencer ao prefixo do dashboard (MAIN_PRODUCT_PREFIX) ou não bater
@@ -313,15 +328,18 @@ def process(meta_rows, leads_rows):
             continue
         total_rows += 1
         origem = cell(row, lidx["origem"])
-        match = ad_camp_adset.get(norm(origem)) if origem else None
+        ad_candidate = extract_ad_name(origem)
+        match = ad_camp_adset.get(norm(ad_candidate)) if ad_candidate else None
+        if not match and origem:
+            match = ad_camp_adset.get(norm(origem))   # fallback: já era só o Ad Name
         if match:
             src, camp, adset, ad = "meta", match["camp"], match["adset"], match["ad"]
         else:
             if origem:
                 unmatched += 1
                 if len(unmatched_samples) < 8:
-                    unmatched_samples.append(origem)
-            src, camp, adset, ad = "org", "(sem campanha)", "(sem conjunto)", (origem or "(sem anúncio)")
+                    unmatched_samples.append(f"{origem!r} (extraído: {ad_candidate!r})")
+            src, camp, adset, ad = "org", "(sem campanha)", "(sem conjunto)", (ad_candidate or origem or "(sem anúncio)")
         area = pretty_area(cell(row, lidx["area"]))
         raw_date = cell(row, lidx["created"])
         parsed_date = parse_date(raw_date)
