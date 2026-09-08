@@ -82,7 +82,7 @@ puro + Chart.js via CDN) publicado no **GitHub Pages**, que cruza a lista de
 
 | Planilha | Aba | gid | Colunas |
 |-----|-----|-----|---------|
-| **Meta Ads** (`12pV1kFQQ0uGgH4JBSY3SgW-2N9R7vnNaptf7u6Et1_I`) | Página 1 | `0` | `Day` · `Campaign Name` · `Ad Set Name` · `Ad Name` · `Impressions` · `Link Clicks` · `Amount Spent` · `Messaging Conversations Started` · `Cost per Messaging Conversations Started` |
+| **Meta Ads** (`12pV1kFQQ0uGgH4JBSY3SgW-2N9R7vnNaptf7u6Et1_I`) | Página 1 | `0` | `Day` · `Campaign Name` · `Ad Set Name` · `Ad Name` · `Impressions` · `Link Clicks` · `Landing Page Views` · `Amount Spent` · `Messaging Conversations Started` · `Cost per Messaging Conversations Started` |
 | **Leads** (`1Fl4PL3M8J28nDzEuVcZxmOkjyyDnBiHLJStb6VlSsDY`) | Leads | `0` | `Data/Hora` · `Nome` · `E-mail` · `Telefone` · `Nota` · `Nível` · `Área prioritária` · `Origem (anúncio)` |
 
 URL de export CSV: `https://docs.google.com/spreadsheets/d/<ID>/export?format=csv&gid=<GID>`
@@ -118,10 +118,13 @@ gasto/derivados (CPL, CPMQL, Custo/Conversa etc.); desativar o toggle volta ao
 gasto sem imposto.
 
 ### Page Views / Checkouts
-A planilha de Meta Ads não tem colunas de Landing Page Views nem Adds to
-Cart/Checkout. `build.py` seta `has_pv=False`/`has_chk=False` em `data.build`;
-`app.js` usa essas flags (`HAS_PV`/`HAS_CHK`) para que CR/CPV/ConvLP/VisCHK
-apareçam como "-" em vez de 0%, em vez de assumir `pv=0`/`chk=0` como dado real.
+A planilha de Meta Ads **tem** coluna `Landing Page Views` (entre `Link Clicks`
+e `Amount Spent`) — `build.py` já a lê via alias (`midx["pv"]`) e seta
+`has_pv=True`. **Não tem** coluna de Adds to Cart/Checkout — `has_chk=False`
+sempre. `app.js` usa essas flags (`HAS_PV`/`HAS_CHK`) para que CR/CPV/ConvLP
+(e VisCHK, por não ter checkout) apareçam como "-" em vez de 0% quando a
+coluna correspondente não existe, em vez de assumir `pv=0`/`chk=0` como dado
+real.
 
 ## Arquitetura / arquivos
 
@@ -241,8 +244,9 @@ filtro cruzado bidirecional; tabela diária com último dia no topo; heatmap de 
 fixa por métrica.
 
 ## Lacunas de dados (comuns até o cliente enviar mais fontes)
-- **Agendamentos / Reuniões Realizadas** → precisam da lista do comercial; aparecem "-".
-- **Page Views, CR, CPV, ConvLP** → precisam de uma fonte de page views.
+- **Agendamentos / Reuniões Realizadas / Vendas / Faturamento** → precisam da lista
+  do comercial/vendas; fora do funil (removido a pedido do cliente) e "-" nas tabelas.
+- **Checkouts, VisCHK** → precisam de uma coluna de Adds to Cart/Checkout no Meta Ads.
 - Enquanto não vierem, essas métricas aparecem como "-".
 
 ## Publicação — problemas conhecidos
