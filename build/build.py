@@ -141,12 +141,21 @@ def parse_date(v: str) -> str | None:
     m = re.match(r"(\d{4})-(\d{2})-(\d{2})", s)
     if m:
         return f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
-    for fmt in ("%d/%m/%Y", "%m/%d/%Y", "%d/%m/%y", "%b %d, %Y", "%Y/%m/%d",
-                "%d/%m/%Y %H:%M:%S", "%d/%m/%Y %H:%M"):
+    s = s.replace("\xa0", " ").replace(",", " ")
+    s = re.sub(r"\s+", " ", s).strip()
+    for fmt in ("%d/%m/%Y", "%m/%d/%Y", "%d/%m/%y", "%b %d %Y", "%Y/%m/%d",
+                "%d/%m/%Y %H:%M:%S", "%d/%m/%Y %H:%M",
+                "%m/%d/%Y %H:%M:%S", "%m/%d/%Y %H:%M",
+                "%d/%m/%Y %I:%M:%S %p", "%m/%d/%Y %I:%M:%S %p",
+                "%d/%m/%Y %I:%M %p", "%m/%d/%Y %I:%M %p"):
         try:
             return datetime.strptime(s, fmt).strftime("%Y-%m-%d")
         except ValueError:
             continue
+    # último recurso: pega só o "pedaço" de data antes do 1º espaço (data + hora
+    # num formato não previsto acima) e tenta de novo só a parte da data.
+    if " " in s:
+        return parse_date(s.split(" ", 1)[0])
     return None
 
 
@@ -294,11 +303,15 @@ def process(meta_rows, leads_rows):
 
     leads = []
     unmatched = 0
+    unmatched_samples: list[str] = []
+    bad_date_samples: list[str] = []
+    total_rows = 0
     for row in leads_rows[1:]:
         if not any((c or "").strip() for c in row):
             continue
         if is_test_lead(" ".join(str(c) for c in row)):
             continue
+        total_rows += 1
         origem = cell(row, lidx["origem"])
         match = ad_camp_adset.get(norm(origem)) if origem else None
         if match:
@@ -306,10 +319,16 @@ def process(meta_rows, leads_rows):
         else:
             if origem:
                 unmatched += 1
+                if len(unmatched_samples) < 8:
+                    unmatched_samples.append(origem)
             src, camp, adset, ad = "org", "(sem campanha)", "(sem conjunto)", (origem or "(sem anúncio)")
         area = pretty_area(cell(row, lidx["area"]))
+        raw_date = cell(row, lidx["created"])
+        parsed_date = parse_date(raw_date)
+        if raw_date and not parsed_date and len(bad_date_samples) < 8:
+            bad_date_samples.append(raw_date)
         leads.append({
-            "d": parse_date(cell(row, lidx["created"])),
+            "d": parsed_date,
             "src": src,
             "plat": "ig" if src == "meta" else "—",
             "camp": camp,
@@ -323,10 +342,20 @@ def process(meta_rows, leads_rows):
             "em": mask_email(cell(row, lidx["email"])),
             "ph": mask_phone(cell(row, lidx["phone"])),
         })
+    print(f"  [diagnóstico] linhas de lead válidas na planilha Leads: {total_rows}  "
+          f"({sum(1 for l in leads if l['d'])} com data reconhecida, "
+          f"{sum(1 for l in leads if not l['d'])} SEM data reconhecida)", file=sys.stderr)
+    if bad_date_samples:
+        print(f"  [diagnóstico] exemplos de 'Data/Hora' NÃO reconhecida (formato inesperado): "
+              f"{bad_date_samples}", file=sys.stderr)
     if unmatched:
         print(f"  {unmatched} lead(s) da planilha Leads com 'Origem (anúncio)' "
               f"preenchida mas SEM anúncio correspondente na Meta Ads (entram "
               f"nos totais como \"(sem campanha)\").", file=sys.stderr)
+        print(f"  [diagnóstico] exemplos de 'Origem (anúncio)' sem correspondência: "
+              f"{unmatched_samples}", file=sys.stderr)
+        print(f"  [diagnóstico] Ad Name conhecidos no Meta Ads (sub-funil Quiz/LEAD): "
+              f"{sorted({v['ad'] for v in ad_camp_adset.values()})}", file=sys.stderr)
 
     dates = sorted({d for d in ([l["d"] for l in leads if l["d"]] + [m["d"] for m in meta if m["d"]])})
     now_brt = datetime.now(BRT)

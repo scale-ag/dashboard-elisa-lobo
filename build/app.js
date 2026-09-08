@@ -535,11 +535,32 @@ function kpiCard(k){ return `<div class="kpi ${k.hero?'hero':''}"><div class="kl
 /* ---------------- PAGE 1: Visão Geral ---------------- */
 /* IDs dos elementos por página — a Visão Geral e o Relatório compartilham o
    MESMO corpo (renderGeralCore), só mudam os alvos no DOM. */
-const GERAL_IDS={funnel:'geralFunnel',kpis2:'geralKpis2',combo:'gCombo',source:'gSource',bucket:'gBucket',plat:'gPlat',prof:'gProf',daily:'gDaily'};
-const REL_IDS  ={funnel:'relFunnel', kpis2:'relKpis2', combo:'rCombo',source:'rSource',bucket:'rBucket',plat:'rPlat',prof:'rProf',daily:'rDaily'};
+const GERAL_IDS={funnel:'geralFunnel',funnelWA:'geralFunnelWA',kpis2:'geralKpis2',combo:'gCombo',source:'gSource',bucket:'gBucket',plat:'gPlat',prof:'gProf',daily:'gDaily'};
+const REL_IDS  ={funnel:'relFunnel', funnelWA:'relFunnelWA', kpis2:'relKpis2', combo:'rCombo',source:'rSource',bucket:'rBucket',plat:'rPlat',prof:'rProf',daily:'rDaily'};
 function renderGeral(){ renderGeralCore(GERAL_IDS); }
+/* Meta Ads mistura 2 sub-funis na mesma planilha (build.py -> subfunnel_of):
+   'quiz' (campanhas "LEAD", cruzam com Leads/MQL) e 'whatsapp' (campanhas
+   "ENGJ", sem MQL — métrica é Messaging Conversations Started). O funil
+   principal (Gasto/Impressões/Cliques/Leads/MQL) é sempre calculado só com
+   o sub-funil Quiz — misturar o gasto/impressões do WhatsApp ali inflava os
+   números e não batia com o Gerenciador de Anúncios filtrado por campanha. */
+function waTotals(fMw){
+  let sp=0,im=0,cl=0,cv=0;
+  fMw.forEach(r=>{ sp+=r.sp; im+=r.im; cl+=r.cl; cv+=r.cv||0; });
+  return {sp,im,cl,cv,pv:0,chk:0,leads:0,mqls:0};
+}
+function waFunnelSteps(fMw){
+  const tw=waTotals(fMw), dv=derive(tw);
+  return [
+    ['Gasto (WhatsApp)', brl(dv.gasto), [], false, 'hl-gasto'],
+    ['Impressões', intf(tw.im), [['CPM',brl(dv.cpm)]]],
+    ['Cliques', intf(tw.cl), [['CTR',pct(dv.ctr)],['CPC',brl(dv.cpc)]]],
+    ['Conversas Iniciadas', intf(tw.cv), [['Custo/Conversa',brl(dv.cpconv)]], false, 'hl-mql'],
+  ];
+}
 function renderGeralCore(ids){
-  const fL=leadsActive(), fM=metaActive(), fS=salesActive();
+  const fL=leadsActive(), fMAll=metaActive(), fS=salesActive();
+  const fM=fMAll.filter(m=>m.sub==='quiz'), fMw=fMAll.filter(m=>m.sub==='whatsapp');
   const t=totals(fL,fM,fS), dv=derive(t), g=dv.gasto;
   const leadsAds=fL.filter(l=>l.src==='meta'||l.src==='google');
   const nAds=leadsAds.length, mqlsAds=leadsAds.reduce((s,r)=>s+r.q,0);
@@ -555,6 +576,7 @@ function renderGeralCore(ids){
     ['MQLs (Nível Intenso)', intf(t.mqls), [['Tx‑MQL',pct(dv.tx)],['CPMQL',brl(dv.cpmql)]], false, 'hl-mql'],
   ];
   document.getElementById(ids.funnel).innerHTML=funnelHTML(steps);
+  if(ids.funnelWA) document.getElementById(ids.funnelWA).innerHTML=funnelHTML(waFunnelSteps(fMw));
   // ---- Mar05: métricas secundárias mais úteis (não repetem o funil) ----
   const dd=daily(fL,fM,fS), nDays=dd.length||1;
   const adAgg=buildAgg(fL,fM,fS,'ad');
@@ -576,8 +598,6 @@ function renderGeralCore(ids){
     {label:'% Eficácia Rastr.',val:pct(t.leads?comUtm/t.leads:null),aux:'Leads c/ UTM / Leads'},
     {label:'Leads Orgânicos',val:intf(nOrg),aux:'sem fonte paga'},
     {label:'Proporção Org:Ads',val:nOrg?numf(nAds/nOrg)+':1':(nAds?'∞':'-'),aux:'Ads por orgânico'},
-    {label:'Conversas Iniciadas (WhatsApp)',val:intf(t.cv),aux:'Sub-funil ENGJ · sem MQL'},
-    {label:'Custo por Conversa (WhatsApp)',val:brl(dv.cpconv),aux:'Sub-funil ENGJ'},
   ];
   document.getElementById(ids.kpis2).innerHTML=k2.map(kpiCard).join('');
   comboChart(ids.combo, daily(fL,fM,fS));
@@ -928,7 +948,9 @@ function selDim(dim,key,ctrl){
   renderMeta();
 }
 function renderMeta(){
-  const F=metaScope(null), fL=F.fL, fM=F.fM, fS=F.fS;   // KPIs, funil, graficos e tabela diaria
+  const F=metaScope(null), fL=F.fL, fMAll=F.fM, fS=F.fS;   // KPIs, funil, graficos e tabela diaria
+  // Funil principal (Leads/MQL) só com o sub-funil Quiz — ver waFunnelSteps().
+  const fM=fMAll.filter(m=>m.sub==='quiz'), fMw=fMAll.filter(m=>m.sub==='whatsapp');
   const t=totals(fL,fM,fS), dv=derive(t), g=dv.gasto;
   const NA='<span class="na-tag">sem dado</span>';
   const steps=[
@@ -940,6 +962,7 @@ function renderMeta(){
     ['MQLs (Nível Intenso)', intf(t.mqls), [['Tx‑MQL',pct(dv.tx)],['CPMQL',brl(dv.cpmql)]], false, 'hl-mql'],
   ];
   document.getElementById('metaFunnel').innerHTML=funnelHTML(steps);
+  document.getElementById('metaFunnelWA').innerHTML=funnelHTML(waFunnelSteps(fMw));
 
   comboChart('mCombo', daily(fL,fM,fS));
   // Mar02: barras de MQLs por anúncio (não leads)
