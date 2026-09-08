@@ -238,9 +238,10 @@ def process(meta_rows, leads_rows):
         "spent": ["amount spent", "valor gasto", "gasto"],
         "impr": ["impressions", "impress"],
         "clicks": ["link clicks", "clicks", "cliques"],
+        "pv": ["landing page views", "page views"],
         "conv": ["messaging conversations started"],
     })
-    has_pv = False   # sem coluna de Page Views nesta conta
+    has_pv = midx["pv"] is not None
     has_chk = False  # sem coluna de Adds to Cart/Checkout nesta conta
 
     meta = []
@@ -267,7 +268,7 @@ def process(meta_rows, leads_rows):
             "sp": round(to_float(cell(row, midx["spent"])), 4),
             "im": to_float(cell(row, midx["impr"])),
             "cl": to_float(cell(row, midx["clicks"])),
-            "pv": 0.0,
+            "pv": to_float(cell(row, midx["pv"])) if has_pv else 0.0,
             "ck": 0.0,
             # Messaging Conversations Started só existe (é > 0) nas campanhas
             # ENGJ (WhatsApp); nas LEAD (Quiz) a coluna vem vazia/zero.

@@ -37,7 +37,7 @@ Duas planilhas separadas (não escritas pelo build):
 
 | Planilha | Aba | gid | Uso |
 |-----|-----|-----|-----|
-| Meta Ads (`12pV1kFQQ0uGgH4JBSY3SgW-2N9R7vnNaptf7u6Et1_I`) | Página 1 | `0` | investimento, impressões, cliques, Messaging Conversations Started |
+| Meta Ads (`12pV1kFQQ0uGgH4JBSY3SgW-2N9R7vnNaptf7u6Et1_I`) | Página 1 | `0` | investimento, impressões, cliques, Landing Page Views, Messaging Conversations Started |
 | Leads (`1Fl4PL3M8J28nDzEuVcZxmOkjyyDnBiHLJStb6VlSsDY`) | Leads | `0` | leads do funil Quiz, Nível de qualificação, Origem (anúncio) |
 
 O build lê essas abas via **export CSV público** (`.../export?format=csv&gid=...`).

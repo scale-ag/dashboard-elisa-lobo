@@ -546,7 +546,6 @@ function renderGeralCore(ids){
   const nOrg=fL.filter(l=>l.src==='org').length;
   const semUtm=fL.filter(l=>!l.utm).length, comUtm=t.leads-semUtm;
   const NA='<span class="na-tag">sem dado</span>';
-  const s=salesOf(t);
   const steps=[
     ['Gasto Total', brl(g), [], false, 'hl-gasto'],
     ['Impressões', intf(t.im), [['CPM',brl(dv.cpm)]]],
@@ -554,9 +553,6 @@ function renderGeralCore(ids){
     ['Page Views', HAS_PV?intf(t.pv):NA, [['CR',pct(dv.cr)],['CPV',brl(dv.cpv)]], !HAS_PV],
     ['Leads', intf(t.leads), [['CPL',brl(dv.cpl)],['ConvLP',pct(dv.convlp)]]],
     ['MQLs (Nível Intenso)', intf(t.mqls), [['Tx‑MQL',pct(dv.tx)],['CPMQL',brl(dv.cpmql)]], false, 'hl-mql'],
-    ['Vendas', s.vendas!=null?intf(s.vendas):NA, [['ConvMQL',s.convmql!=null?pct(s.convmql):NA],['CAC',s.cac!=null?brl(s.cac):NA]], s.vendas==null],
-    ['Receita', s.receita!=null?brl(s.receita):NA, [['ROAS',s.roasReceita!=null?numf(s.roasReceita):NA],['Ticket',s.tmReceita!=null?brl(s.tmReceita):NA]], s.receita==null, 'hl-fat'],
-    ['Faturamento', s.fat!=null?brl(s.fat):NA, [['ROAS',s.roas!=null?numf(s.roas):NA],['Ticket',s.tm!=null?brl(s.tm):NA]], s.fat==null, 'hl-fat'],
   ];
   document.getElementById(ids.funnel).innerHTML=funnelHTML(steps);
   // ---- Mar05: métricas secundárias mais úteis (não repetem o funil) ----
@@ -935,7 +931,6 @@ function renderMeta(){
   const F=metaScope(null), fL=F.fL, fM=F.fM, fS=F.fS;   // KPIs, funil, graficos e tabela diaria
   const t=totals(fL,fM,fS), dv=derive(t), g=dv.gasto;
   const NA='<span class="na-tag">sem dado</span>';
-  const s=salesOf(t);
   const steps=[
     ['Gasto Total', brl(g), [], false, 'hl-gasto'],
     ['Impressões', intf(t.im), [['CPM',brl(dv.cpm)],['Frequência',NA]]],
@@ -943,9 +938,6 @@ function renderMeta(){
     ['Page Views', HAS_PV?intf(t.pv):NA, [['CR',pct(dv.cr)],['CPV',brl(dv.cpv)]], !HAS_PV],
     ['Leads', intf(t.leads), [['CPL',brl(dv.cpl)],['ConvLP',pct(dv.convlp)]]],
     ['MQLs (Nível Intenso)', intf(t.mqls), [['Tx‑MQL',pct(dv.tx)],['CPMQL',brl(dv.cpmql)]], false, 'hl-mql'],
-    ['Vendas', s.vendas!=null?intf(s.vendas):NA, [['ConvMQL',s.convmql!=null?pct(s.convmql):NA],['CAC',s.cac!=null?brl(s.cac):NA]], s.vendas==null],
-    ['Receita', s.receita!=null?brl(s.receita):NA, [['ROAS',s.roasReceita!=null?numf(s.roasReceita):NA],['Ticket',s.tmReceita!=null?brl(s.tmReceita):NA]], s.receita==null, 'hl-fat'],
-    ['Faturamento', s.fat!=null?brl(s.fat):NA, [['ROAS',s.roas!=null?numf(s.roas):NA],['Ticket',s.tm!=null?brl(s.tm):NA]], s.fat==null, 'hl-fat'],
   ];
   document.getElementById('metaFunnel').innerHTML=funnelHTML(steps);
 
