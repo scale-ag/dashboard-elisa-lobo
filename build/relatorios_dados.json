@@ -1,6 +1,6 @@
 {
-  "generated_at": "17/10/2026 04:12",
-  "generated_at_iso": "2026-10-17T04:12:46.968536-03:00",
+  "generated_at": "18/10/2026 04:26",
+  "generated_at_iso": "2026-10-18T04:26:25.821330-03:00",
   "fonte": "Números brutos agregados a partir do funil (mídia paga × Leads) — insumo para a Routine do Claude escrever build/relatorios.json (Insights de Tráfego). Sem interpretação/texto aqui, só aritmética.",
   "params": {
     "tax_factor": 1.1385,
@@ -14,6 +14,226 @@
   "periodos": {
     "hoje": {
       "label": "Hoje",
+      "range": {
+        "start": "2026-10-18",
+        "end": "2026-10-18"
+      },
+      "totais": {
+        "spend": 0.0,
+        "impr": 0,
+        "clicks": 0,
+        "leads": 0,
+        "mqls": 0,
+        "cpm": null,
+        "ctr": null,
+        "cpl": null,
+        "convform": null,
+        "txmql": null,
+        "cpmql": null
+      },
+      "serie_diaria": [],
+      "nota_saude": {
+        "nota": 5.0,
+        "provisoria": true,
+        "classificacao": "Atenção",
+        "motivo": "Nota provisória: sem dados suficientes para aquisicao, conversao_pagina, qualificacao, vendas.",
+        "subnotas": {
+          "aquisicao": null,
+          "conversao_pagina": null,
+          "qualificacao": null,
+          "vendas": null,
+          "consistencia": 10.0,
+          "confiabilidade_dados": 0.0
+        }
+      },
+      "whatsapp_numeros": {
+        "periodo_label": "Hoje",
+        "periodo_range": "18/10/2026 a 18/10/2026",
+        "gasto": "R$ 0,00",
+        "cpm": "—",
+        "ctr": "—",
+        "connect_rate": "Não disponível",
+        "conv_lp": "Não disponível",
+        "leads": "0",
+        "cpl": "—",
+        "mqls": "0",
+        "cpa_cpmql": "—",
+        "vendas": "Não disponível",
+        "faturamento": "Não disponível",
+        "cac": "Não disponível",
+        "roas": "Não disponível",
+        "ticket_medio": "Não disponível",
+        "saude_funil": "5.0/10 — Atenção (provisória)"
+      },
+      "comparativos": {
+        "7d": {
+          "spend": 0.0,
+          "impr": 0,
+          "clicks": 0,
+          "leads": 0,
+          "mqls": 0,
+          "cpm": null,
+          "ctr": null,
+          "cpl": null,
+          "convform": null,
+          "txmql": null,
+          "cpmql": null
+        },
+        "14d": {
+          "spend": 0.0,
+          "impr": 0,
+          "clicks": 0,
+          "leads": 9,
+          "mqls": 7,
+          "cpm": null,
+          "ctr": null,
+          "cpl": 0.0,
+          "convform": null,
+          "txmql": 0.7778,
+          "cpmql": 0.0
+        },
+        "30d": {
+          "spend": 0.0,
+          "impr": 0,
+          "clicks": 0,
+          "leads": 9,
+          "mqls": 7,
+          "cpm": null,
+          "ctr": null,
+          "cpl": 0.0,
+          "convform": null,
+          "txmql": 0.7778,
+          "cpmql": 0.0
+        },
+        "periodo_anterior": {
+          "range": {
+            "start": "2026-10-17",
+            "end": "2026-10-17"
+          },
+          "metodo": "período imediatamente anterior, mesma duração",
+          "totais": {
+            "spend": 0.0,
+            "impr": 0,
+            "clicks": 0,
+            "leads": 0,
+            "mqls": 0,
+            "cpm": null,
+            "ctr": null,
+            "cpl": null,
+            "convform": null,
+            "txmql": null,
+            "cpmql": null
+          },
+          "variacao": {
+            "spend": {
+              "atual": 0.0,
+              "anterior": 0.0,
+              "delta_abs": 0.0,
+              "delta_pct": null,
+              "delta_pp": null,
+              "direcao": "estavel",
+              "material": false
+            },
+            "impr": {
+              "atual": 0,
+              "anterior": 0,
+              "delta_abs": 0,
+              "delta_pct": null,
+              "delta_pp": null,
+              "direcao": "estavel",
+              "material": false
+            },
+            "clicks": {
+              "atual": 0,
+              "anterior": 0,
+              "delta_abs": 0,
+              "delta_pct": null,
+              "delta_pp": null,
+              "direcao": "estavel",
+              "material": false
+            },
+            "leads": {
+              "atual": 0,
+              "anterior": 0,
+              "delta_abs": 0,
+              "delta_pct": null,
+              "delta_pp": null,
+              "direcao": "estavel",
+              "material": false
+            },
+            "mqls": {
+              "atual": 0,
+              "anterior": 0,
+              "delta_abs": 0,
+              "delta_pct": null,
+              "delta_pp": null,
+              "direcao": "estavel",
+              "material": false
+            },
+            "cpm": {
+              "atual": null,
+              "anterior": null,
+              "delta_abs": null,
+              "delta_pct": null,
+              "delta_pp": null,
+              "direcao": "sem_dado",
+              "material": false
+            },
+            "ctr": {
+              "atual": null,
+              "anterior": null,
+              "delta_abs": null,
+              "delta_pct": null,
+              "delta_pp": null,
+              "direcao": "sem_dado",
+              "material": false
+            },
+            "cpl": {
+              "atual": null,
+              "anterior": null,
+              "delta_abs": null,
+              "delta_pct": null,
+              "delta_pp": null,
+              "direcao": "sem_dado",
+              "material": false
+            },
+            "convform": {
+              "atual": null,
+              "anterior": null,
+              "delta_abs": null,
+              "delta_pct": null,
+              "delta_pp": null,
+              "direcao": "sem_dado",
+              "material": false
+            },
+            "txmql": {
+              "atual": null,
+              "anterior": null,
+              "delta_abs": null,
+              "delta_pct": null,
+              "delta_pp": null,
+              "direcao": "sem_dado",
+              "material": false
+            },
+            "cpmql": {
+              "atual": null,
+              "anterior": null,
+              "delta_abs": null,
+              "delta_pct": null,
+              "delta_pp": null,
+              "direcao": "sem_dado",
+              "material": false
+            }
+          }
+        }
+      },
+      "por_campanha": [],
+      "por_conjunto": [],
+      "por_anuncio": [],
+      "criativos_consolidado": []
+    },
+    "ontem": {
+      "label": "Ontem",
       "range": {
         "start": "2026-10-17",
         "end": "2026-10-17"
@@ -47,7 +267,7 @@
         }
       },
       "whatsapp_numeros": {
-        "periodo_label": "Hoje",
+        "periodo_label": "Ontem",
         "periodo_range": "17/10/2026 a 17/10/2026",
         "gasto": "R$ 0,00",
         "cpm": "—",
@@ -94,8 +314,8 @@
         },
         "30d": {
           "spend": 0.0,
-          "impr": 0.0,
-          "clicks": 0.0,
+          "impr": 0,
+          "clicks": 0,
           "leads": 9,
           "mqls": 7,
           "cpm": null,
@@ -232,231 +452,11 @@
       "por_anuncio": [],
       "criativos_consolidado": []
     },
-    "ontem": {
-      "label": "Ontem",
-      "range": {
-        "start": "2026-10-16",
-        "end": "2026-10-16"
-      },
-      "totais": {
-        "spend": 0.0,
-        "impr": 0,
-        "clicks": 0,
-        "leads": 0,
-        "mqls": 0,
-        "cpm": null,
-        "ctr": null,
-        "cpl": null,
-        "convform": null,
-        "txmql": null,
-        "cpmql": null
-      },
-      "serie_diaria": [],
-      "nota_saude": {
-        "nota": 5.0,
-        "provisoria": true,
-        "classificacao": "Atenção",
-        "motivo": "Nota provisória: sem dados suficientes para aquisicao, conversao_pagina, qualificacao, vendas.",
-        "subnotas": {
-          "aquisicao": null,
-          "conversao_pagina": null,
-          "qualificacao": null,
-          "vendas": null,
-          "consistencia": 10.0,
-          "confiabilidade_dados": 0.0
-        }
-      },
-      "whatsapp_numeros": {
-        "periodo_label": "Ontem",
-        "periodo_range": "16/10/2026 a 16/10/2026",
-        "gasto": "R$ 0,00",
-        "cpm": "—",
-        "ctr": "—",
-        "connect_rate": "Não disponível",
-        "conv_lp": "Não disponível",
-        "leads": "0",
-        "cpl": "—",
-        "mqls": "0",
-        "cpa_cpmql": "—",
-        "vendas": "Não disponível",
-        "faturamento": "Não disponível",
-        "cac": "Não disponível",
-        "roas": "Não disponível",
-        "ticket_medio": "Não disponível",
-        "saude_funil": "5.0/10 — Atenção (provisória)"
-      },
-      "comparativos": {
-        "7d": {
-          "spend": 0.0,
-          "impr": 0,
-          "clicks": 0,
-          "leads": 0,
-          "mqls": 0,
-          "cpm": null,
-          "ctr": null,
-          "cpl": null,
-          "convform": null,
-          "txmql": null,
-          "cpmql": null
-        },
-        "14d": {
-          "spend": 0.0,
-          "impr": 0,
-          "clicks": 0,
-          "leads": 9,
-          "mqls": 7,
-          "cpm": null,
-          "ctr": null,
-          "cpl": 0.0,
-          "convform": null,
-          "txmql": 0.7778,
-          "cpmql": 0.0
-        },
-        "30d": {
-          "spend": 0.0,
-          "impr": 0.0,
-          "clicks": 0.0,
-          "leads": 9,
-          "mqls": 7,
-          "cpm": null,
-          "ctr": null,
-          "cpl": 0.0,
-          "convform": null,
-          "txmql": 0.7778,
-          "cpmql": 0.0
-        },
-        "periodo_anterior": {
-          "range": {
-            "start": "2026-10-15",
-            "end": "2026-10-15"
-          },
-          "metodo": "período imediatamente anterior, mesma duração",
-          "totais": {
-            "spend": 0.0,
-            "impr": 0,
-            "clicks": 0,
-            "leads": 0,
-            "mqls": 0,
-            "cpm": null,
-            "ctr": null,
-            "cpl": null,
-            "convform": null,
-            "txmql": null,
-            "cpmql": null
-          },
-          "variacao": {
-            "spend": {
-              "atual": 0.0,
-              "anterior": 0.0,
-              "delta_abs": 0.0,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "estavel",
-              "material": false
-            },
-            "impr": {
-              "atual": 0,
-              "anterior": 0,
-              "delta_abs": 0,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "estavel",
-              "material": false
-            },
-            "clicks": {
-              "atual": 0,
-              "anterior": 0,
-              "delta_abs": 0,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "estavel",
-              "material": false
-            },
-            "leads": {
-              "atual": 0,
-              "anterior": 0,
-              "delta_abs": 0,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "estavel",
-              "material": false
-            },
-            "mqls": {
-              "atual": 0,
-              "anterior": 0,
-              "delta_abs": 0,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "estavel",
-              "material": false
-            },
-            "cpm": {
-              "atual": null,
-              "anterior": null,
-              "delta_abs": null,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "sem_dado",
-              "material": false
-            },
-            "ctr": {
-              "atual": null,
-              "anterior": null,
-              "delta_abs": null,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "sem_dado",
-              "material": false
-            },
-            "cpl": {
-              "atual": null,
-              "anterior": null,
-              "delta_abs": null,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "sem_dado",
-              "material": false
-            },
-            "convform": {
-              "atual": null,
-              "anterior": null,
-              "delta_abs": null,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "sem_dado",
-              "material": false
-            },
-            "txmql": {
-              "atual": null,
-              "anterior": null,
-              "delta_abs": null,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "sem_dado",
-              "material": false
-            },
-            "cpmql": {
-              "atual": null,
-              "anterior": null,
-              "delta_abs": null,
-              "delta_pct": null,
-              "delta_pp": null,
-              "direcao": "sem_dado",
-              "material": false
-            }
-          }
-        }
-      },
-      "por_campanha": [],
-      "por_conjunto": [],
-      "por_anuncio": [],
-      "criativos_consolidado": []
-    },
     "3d": {
       "label": "3 dias",
       "range": {
-        "start": "2026-10-15",
-        "end": "2026-10-17"
+        "start": "2026-10-16",
+        "end": "2026-10-18"
       },
       "totais": {
         "spend": 0.0,
@@ -488,7 +488,7 @@
       },
       "whatsapp_numeros": {
         "periodo_label": "3 dias",
-        "periodo_range": "15/10/2026 a 17/10/2026",
+        "periodo_range": "16/10/2026 a 18/10/2026",
         "gasto": "R$ 0,00",
         "cpm": "—",
         "ctr": "—",
@@ -534,8 +534,8 @@
         },
         "30d": {
           "spend": 0.0,
-          "impr": 0.0,
-          "clicks": 0.0,
+          "impr": 0,
+          "clicks": 0,
           "leads": 9,
           "mqls": 7,
           "cpm": null,
@@ -547,8 +547,8 @@
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-10-12",
-            "end": "2026-10-14"
+            "start": "2026-10-13",
+            "end": "2026-10-15"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
@@ -675,8 +675,8 @@
     "7d": {
       "label": "7 dias",
       "range": {
-        "start": "2026-10-11",
-        "end": "2026-10-17"
+        "start": "2026-10-12",
+        "end": "2026-10-18"
       },
       "totais": {
         "spend": 0.0,
@@ -708,7 +708,7 @@
       },
       "whatsapp_numeros": {
         "periodo_label": "7 dias",
-        "periodo_range": "11/10/2026 a 17/10/2026",
+        "periodo_range": "12/10/2026 a 18/10/2026",
         "gasto": "R$ 0,00",
         "cpm": "—",
         "ctr": "—",
@@ -754,8 +754,8 @@
         },
         "30d": {
           "spend": 0.0,
-          "impr": 0.0,
-          "clicks": 0.0,
+          "impr": 0,
+          "clicks": 0,
           "leads": 9,
           "mqls": 7,
           "cpm": null,
@@ -767,8 +767,8 @@
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-10-04",
-            "end": "2026-10-10"
+            "start": "2026-10-05",
+            "end": "2026-10-11"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
@@ -895,8 +895,8 @@
     "14d": {
       "label": "14 dias",
       "range": {
-        "start": "2026-10-04",
-        "end": "2026-10-17"
+        "start": "2026-10-05",
+        "end": "2026-10-18"
       },
       "totais": {
         "spend": 0.0,
@@ -955,7 +955,7 @@
       },
       "whatsapp_numeros": {
         "periodo_label": "14 dias",
-        "periodo_range": "04/10/2026 a 17/10/2026",
+        "periodo_range": "05/10/2026 a 18/10/2026",
         "gasto": "R$ 0,00",
         "cpm": "—",
         "ctr": "—",
@@ -1001,8 +1001,8 @@
         },
         "30d": {
           "spend": 0.0,
-          "impr": 0.0,
-          "clicks": 0.0,
+          "impr": 0,
+          "clicks": 0,
           "leads": 9,
           "mqls": 7,
           "cpm": null,
@@ -1014,8 +1014,8 @@
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-09-20",
-            "end": "2026-10-03"
+            "start": "2026-09-21",
+            "end": "2026-10-04"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
@@ -1217,13 +1217,13 @@
     "30d": {
       "label": "30 dias",
       "range": {
-        "start": "2026-09-18",
-        "end": "2026-10-17"
+        "start": "2026-09-19",
+        "end": "2026-10-18"
       },
       "totais": {
         "spend": 0.0,
-        "impr": 0.0,
-        "clicks": 0.0,
+        "impr": 0,
+        "clicks": 0,
         "leads": 9,
         "mqls": 7,
         "cpm": null,
@@ -1277,7 +1277,7 @@
       },
       "whatsapp_numeros": {
         "periodo_label": "30 dias",
-        "periodo_range": "18/09/2026 a 17/10/2026",
+        "periodo_range": "19/09/2026 a 18/10/2026",
         "gasto": "R$ 0,00",
         "cpm": "—",
         "ctr": "—",
@@ -1323,8 +1323,8 @@
         },
         "30d": {
           "spend": 0.0,
-          "impr": 0.0,
-          "clicks": 0.0,
+          "impr": 0,
+          "clicks": 0,
           "leads": 9,
           "mqls": 7,
           "cpm": null,
@@ -1336,46 +1336,46 @@
         },
         "periodo_anterior": {
           "range": {
-            "start": "2026-08-19",
-            "end": "2026-09-17"
+            "start": "2026-08-20",
+            "end": "2026-09-18"
           },
           "metodo": "período imediatamente anterior, mesma duração",
           "totais": {
-            "spend": 1405.6,
-            "impr": 68735.0,
-            "clicks": 1091.0,
-            "leads": 84,
-            "mqls": 75,
-            "cpm": 20.45,
-            "ctr": 0.0159,
-            "cpl": 16.73,
-            "convform": 0.077,
-            "txmql": 0.8929,
-            "cpmql": 18.74
+            "spend": 1321.9,
+            "impr": 64477.0,
+            "clicks": 1018.0,
+            "leads": 74,
+            "mqls": 66,
+            "cpm": 20.5,
+            "ctr": 0.0158,
+            "cpl": 17.86,
+            "convform": 0.0727,
+            "txmql": 0.8919,
+            "cpmql": 20.03
           },
           "variacao": {
             "spend": {
               "atual": 0.0,
-              "anterior": 1405.6034849999999,
-              "delta_abs": -1405.6035,
+              "anterior": 1321.900965,
+              "delta_abs": -1321.901,
               "delta_pct": -1.0,
               "delta_pp": null,
               "direcao": "melhorou",
               "material": true
             },
             "impr": {
-              "atual": 0.0,
-              "anterior": 68735.0,
-              "delta_abs": -68735.0,
+              "atual": 0,
+              "anterior": 64477.0,
+              "delta_abs": -64477.0,
               "delta_pct": -1.0,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "clicks": {
-              "atual": 0.0,
-              "anterior": 1091.0,
-              "delta_abs": -1091.0,
+              "atual": 0,
+              "anterior": 1018.0,
+              "delta_abs": -1018.0,
               "delta_pct": -1.0,
               "delta_pp": null,
               "direcao": "piorou",
@@ -1383,25 +1383,25 @@
             },
             "leads": {
               "atual": 9,
-              "anterior": 84,
-              "delta_abs": -75,
-              "delta_pct": -0.8929,
+              "anterior": 74,
+              "delta_abs": -65,
+              "delta_pct": -0.8784,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "mqls": {
               "atual": 7,
-              "anterior": 75,
-              "delta_abs": -68,
-              "delta_pct": -0.9067,
+              "anterior": 66,
+              "delta_abs": -59,
+              "delta_pct": -0.8939,
               "delta_pp": null,
               "direcao": "piorou",
               "material": true
             },
             "cpm": {
               "atual": null,
-              "anterior": 20.44960333163599,
+              "anterior": 20.501899359461515,
               "delta_abs": null,
               "delta_pct": null,
               "delta_pp": null,
@@ -1410,7 +1410,7 @@
             },
             "ctr": {
               "atual": null,
-              "anterior": 0.01587255401178439,
+              "anterior": 0.015788575771205238,
               "delta_abs": null,
               "delta_pct": null,
               "delta_pp": null,
@@ -1419,8 +1419,8 @@
             },
             "cpl": {
               "atual": 0.0,
-              "anterior": 16.73337482142857,
-              "delta_abs": -16.7334,
+              "anterior": 17.863526554054054,
+              "delta_abs": -17.8635,
               "delta_pct": -1.0,
               "delta_pp": null,
               "direcao": "melhorou",
@@ -1428,7 +1428,7 @@
             },
             "convform": {
               "atual": null,
-              "anterior": 0.076993583868011,
+              "anterior": 0.07269155206286837,
               "delta_abs": null,
               "delta_pct": null,
               "delta_pp": null,
@@ -1437,17 +1437,17 @@
             },
             "txmql": {
               "atual": 0.7777777777777778,
-              "anterior": 0.8928571428571429,
-              "delta_abs": -0.1151,
-              "delta_pct": -0.1289,
-              "delta_pp": -11.51,
+              "anterior": 0.8918918918918919,
+              "delta_abs": -0.1141,
+              "delta_pct": -0.1279,
+              "delta_pp": -11.41,
               "direcao": "piorou",
               "material": true
             },
             "cpmql": {
               "atual": 0.0,
-              "anterior": 18.741379799999997,
-              "delta_abs": -18.7414,
+              "anterior": 20.0288025,
+              "delta_abs": -20.0288,
               "delta_pct": -1.0,
               "delta_pp": null,
               "direcao": "melhorou",
@@ -1459,8 +1459,8 @@
       "por_campanha": [
         {
           "spend": 0.0,
-          "impr": 0.0,
-          "clicks": 0.0,
+          "impr": 0,
+          "clicks": 0,
           "leads": 9,
           "mqls": 7,
           "cpm": null,
@@ -1540,7 +1540,7 @@
       "label": "Este mês",
       "range": {
         "start": "2026-10-01",
-        "end": "2026-10-17"
+        "end": "2026-10-18"
       },
       "totais": {
         "spend": 0.0,
@@ -1599,7 +1599,7 @@
       },
       "whatsapp_numeros": {
         "periodo_label": "Este mês",
-        "periodo_range": "01/10/2026 a 17/10/2026",
+        "periodo_range": "01/10/2026 a 18/10/2026",
         "gasto": "R$ 0,00",
         "cpm": "—",
         "ctr": "—",
@@ -1645,8 +1645,8 @@
         },
         "30d": {
           "spend": 0.0,
-          "impr": 0.0,
-          "clicks": 0.0,
+          "impr": 0,
+          "clicks": 0,
           "leads": 9,
           "mqls": 7,
           "cpm": null,
@@ -1659,9 +1659,9 @@
         "periodo_anterior": {
           "range": {
             "start": "2026-09-01",
-            "end": "2026-09-17"
+            "end": "2026-09-18"
           },
-          "metodo": "mesmo intervalo de dias (1–17) do mês anterior",
+          "metodo": "mesmo intervalo de dias (1–18) do mês anterior",
           "totais": {
             "spend": 629.5,
             "impr": 28258.0,
@@ -2123,8 +2123,8 @@
         },
         "30d": {
           "spend": 0.0,
-          "impr": 0.0,
-          "clicks": 0.0,
+          "impr": 0,
+          "clicks": 0,
           "leads": 9,
           "mqls": 7,
           "cpm": null,
@@ -3567,8 +3567,8 @@
         },
         "30d": {
           "spend": 0.0,
-          "impr": 0.0,
-          "clicks": 0.0,
+          "impr": 0,
+          "clicks": 0,
           "leads": 9,
           "mqls": 7,
           "cpm": null,
